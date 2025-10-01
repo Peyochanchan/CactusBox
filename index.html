@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Cactus Box - Jazz / Hip-Hop Quatuor</title>
+  </head>
+  <body>
+    <img
+      src="images/header_cactus_box.jpg"
+      alt="Cactus Box"
+      class="header-image"
+    />
+
+    <div style="padding: 20px">
+      <div class="container">
+        <h1>Cactus Box</h1>
+        <h2>Jazz / Hip-Hop Quatuor</h2>
+        <p class="instruments">Piano ~ Beatbox ~ Trombone ~ Rap ~ Chant</p>
+
+        <div class="nav-buttons">
+          <button class="nav-button active" onclick="showSection('bio')">
+            📖 Biographie
+          </button>
+          <button class="nav-button" onclick="showSection('videos')">
+            🎬 Vidéos
+          </button>
+          <button class="nav-button" onclick="showSection('press')">
+            📁 Dossier de Presse
+          </button>
+        </div>
+
+        <div id="bio" class="content-section active">
+          <p class="description">
+            Cactus Box, un quartet musical à la créativité débordante, allie
+            rap, chant, beatbox, piano et cuivres dans une alchimie sonore
+            unique.
+          </p>
+
+          <p class="description">
+            Peio, à la voix rocailleuse, aux improvisations clavier éclectiques
+            et aux couleurs pianistiques singulières, s'allie à Joos, artisan du
+            groove buccal aux beats inépuisables. Daemon, rappeur improvisateur
+            au flow marseillais imparable, électrise l'audience, tandis que
+            Matthew au trombone façonne une texture sonore veloutée.
+          </p>
+
+          <p class="description">
+            Ensemble, ils transcendent leurs influences pour créer un « soul
+            blues hiphop » à la fois vintage et résolument contemporain. Leurs
+            improvisations vocales et rythmiques, teintées de poésie, invitent à
+            la danse et à l'évasion.
+          </p>
+
+          <p class="description">
+            Cactus Box offre une expérience musicale unique, où la bienveillance
+            et l'énergie du Sud se mêlent pour captiver et transporter le
+            public.
+          </p>
+
+          <div class="links-section">
+            <h3 class="links-title">En savoir plus</h3>
+            <div class="links-container">
+              <a
+                href="https://www.marsoleil-production.com/cactus-box/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="link-button"
+              >
+                🎵 Marsoleil Production
+              </a>
+              <a
+                href="https://youtube.com/playlist?list=PLX6Hd9P66FMUnW5laIVIQPdvPxMOwiKsf"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="link-button"
+              >
+                📺 Playlist YouTube
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div id="videos" class="content-section">
+          <h3 class="links-title">Nos Vidéos</h3>
+          <div class="videos-grid">
+            <div class="video-wrapper">
+              <iframe
+                src="https://www.youtube.com/embed/6Zflni6qctQ?rel=0&modestbranding=1&showinfo=0"
+                title="Cactus Box - Vidéo 1"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+            <div class="video-wrapper">
+              <iframe
+                src="https://www.youtube.com/embed/I5nsEXe-XPY?rel=0&modestbranding=1&showinfo=0"
+                title="Cactus Box - Vidéo 2"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+            <div class="video-wrapper">
+              <iframe
+                src="https://www.youtube.com/embed/fXTZ3f84b9A?rel=0&modestbranding=1&showinfo=0"
+                title="Cactus Box - Vidéo 3"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+            <div class="video-wrapper">
+              <iframe
+                src="https://www.youtube.com/embed/UZvsjaGjaYA?rel=0&modestbranding=1&showinfo=0"
+                title="Cactus Box - Vidéo 4"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+          </div>
+          <div class="links-section">
+            <a
+              href="https://www.pierrecherbero.com/bands/cactus-box/videos#videos"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="link-button"
+            >
+              🎬 Toutes les vidéos
+            </a>
+          </div>
+        </div>
+
+        <div id="press" class="content-section">
+          <h3 class="links-title">Dossier de Presse</h3>
+          <p
+            class="description"
+            style="text-align: center; margin-bottom: 40px"
+          >
+            Retrouvez toutes les informations professionnelles, photos haute
+            résolution et contenus médias de Cactus Box.
+          </p>
+          <div class="links-container">
+            <a href="#" class="link-button">
+              📁 Télécharger le Dossier de Presse
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function showSection(sectionId) {
+        const sections = document.querySelectorAll(".content-section");
+        const buttons = document.querySelectorAll(".nav-button");
+
+        sections.forEach((section) => {
+          section.classList.remove("active");
+        });
+
+        buttons.forEach((button) => {
+          button.classList.remove("active");
+        });
+
+        document.getElementById(sectionId).classList.add("active");
+        event.target.classList.add("active");
+
+        // Charger les vidéos seulement quand la section vidéos est active
+        if (sectionId === "videos") {
+          loadVideos();
+        }
+      }
+
+      function loadVideos() {
+        const videoWrappers = document.querySelectorAll(".video-wrapper");
+        videoWrappers.forEach((wrapper, index) => {
+          const iframe = wrapper.querySelector("iframe");
+          if (iframe && !wrapper.classList.contains("loaded")) {
+            // Ajouter un délai pour un chargement progressif
+            setTimeout(() => {
+              // Marquer comme chargé immédiatement
+              wrapper.classList.add("loaded");
+              iframe.dataset.loaded = "true";
+            }, index * 200); // Délai de 200ms entre chaque vidéo
+          }
+        });
+      }
+
+      // Charger les vidéos au scroll pour optimiser les performances
+      function handleScroll() {
+        const videosSection = document.getElementById("videos");
+        if (videosSection && videosSection.classList.contains("active")) {
+          const rect = videosSection.getBoundingClientRect();
+          if (rect.top < window.innerHeight && rect.bottom > 0) {
+            loadVideos();
+            window.removeEventListener("scroll", handleScroll);
+          }
+        }
+      }
+
+      window.addEventListener("scroll", handleScroll);
+    </script>
+  </body>
+</html>
