@@ -146,10 +146,11 @@
   .link-button {
     display: inline-block;
     padding: 15px 40px;
-    background: linear-gradient(135deg, #e67e22 0%, #f39c12 100%);
-    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+    color: #f39c12;
     text-decoration: none;
-    border-radius: 50px;
+    border: 2px solid #f39c12;
+    border-radius: 12px;
     font-size: 1.1rem;
     font-weight: 600;
     transition: all 0.3s ease;
@@ -160,8 +161,10 @@
 
   .link-button:hover {
     transform: translateY(-3px);
+    color: #fff;
     box-shadow: 0 8px 25px rgba(243, 156, 18, 0.6);
     background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+    text-decoration: none;
   }
 
   .videos-grid {
