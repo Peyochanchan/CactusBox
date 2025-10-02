@@ -1,0 +1,5 @@
+send_email.rb
+mail.html
+.env
+Gemfile.lock
+Gemfile
