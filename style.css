@@ -20,7 +20,47 @@
     position: relative;
     object-fit: cover;
     display: block;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 20px #49B9BC;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .header-image::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    pointer-events: none;
+  }
+
+  .logo-image {
+    background-color: #49B9BC;
+    border-radius: 12%;
+    width: 400px;
+    object-fit: cover;
+    height: 300px;
+    margin: 0 auto;
+    display: block;
+    position: relative;
+    background: rgba(127, 218, 222, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .logo-image::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    pointer-events: none;
+    border-radius: 12%;
   }
 
   .container {
