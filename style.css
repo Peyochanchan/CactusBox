@@ -20,7 +20,7 @@
     position: relative;
     object-fit: cover;
     display: block;
-    box-shadow: 0 4px 20px #49B9BC;
+    box-shadow: 0 4px 20px #4ec0c4;
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
@@ -37,7 +37,7 @@
   }
 
   .logo-image {
-    background-color: #49B9BC;
+    background-color: #4ec0c4;
     border-radius: 12%;
     width: 400px;
     object-fit: cover;
@@ -96,7 +96,7 @@
 
   .instruments {
     text-align: center;
-    color: #95a5a6;
+    color: #4ec0c4;
     font-size: 1rem;
     margin-bottom: 40px;
     letter-spacing: 1px;
