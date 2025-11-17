@@ -3,3 +3,4 @@ mail.html
 .env
 Gemfile.lock
 Gemfile
+.DS_Store
