@@ -3,10 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Sécurité - Content-Security-Policy (seul header de sécurité fonctionnel via meta tag) -->
+    <!-- <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; frame-src https:; connect-src 'self'; font-src 'self' data:;"
+    /> -->
     <link rel="stylesheet" href="style.css" />
     <title>Cactus Box - Jazz / Hip-Hop Quatuor</title>
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <!-- Configuration de la galerie -->
+    <script src="gallery-config.js"></script>
   </head>
   <body>
     <img
@@ -22,14 +29,17 @@
         <p class="instruments">Piano ~ Beatbox ~ Trombone ~ Rap ~ Chant</p>
 
         <div class="nav-buttons">
-          <button class="nav-button active" onclick="showSection('bio')">
+          <button class="nav-button active" onclick="showSection('bio', this)">
             📖 Biographie
           </button>
-          <button class="nav-button" onclick="showSection('videos')">
+          <button class="nav-button" onclick="showSection('videos', this)">
             🎬 Vidéos
           </button>
-          <button class="nav-button" onclick="showSection('press')">
+          <button class="nav-button" onclick="showSection('press', this)">
             📁 Dossier Technique
+          </button>
+          <button class="nav-button" onclick="showSection('gallery', this)">
+            📸 Galerie
           </button>
         </div>
 
@@ -96,42 +106,38 @@
           <div class="videos-grid">
             <div class="video-wrapper">
               <iframe
-                src="https://www.youtube.com/embed/6Zflni6qctQ?rel=0&modestbranding=1&showinfo=0"
+                src="https://www.youtube.com/embed/6Zflni6qctQ"
                 title="Cactus Box - Vidéo 1"
                 frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowfullscreen
-                loading="lazy"
               ></iframe>
             </div>
             <div class="video-wrapper">
               <iframe
-                src="https://www.youtube.com/embed/I5nsEXe-XPY?rel=0&modestbranding=1&showinfo=0"
+                src="https://www.youtube.com/embed/I5nsEXe-XPY"
                 title="Cactus Box - Vidéo 2"
                 frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowfullscreen
-                loading="lazy"
               ></iframe>
             </div>
             <div class="video-wrapper">
               <iframe
-                src="https://www.youtube.com/embed/fXTZ3f84b9A?rel=0&modestbranding=1&showinfo=0"
+                src="https://www.youtube.com/embed/fXTZ3f84b9A"
                 title="Cactus Box - Vidéo 3"
                 frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowfullscreen
-                loading="lazy"
               ></iframe>
             </div>
             <div class="video-wrapper">
               <iframe
-                src="https://www.youtube.com/embed/UZvsjaGjaYA?rel=0&modestbranding=1&showinfo=0"
+                src="https://www.youtube.com/embed/UZvsjaGjaYA"
                 title="Cactus Box - Vidéo 4"
                 frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowfullscreen
-                loading="lazy"
               ></iframe>
             </div>
           </div>
@@ -160,6 +166,31 @@
             <a href="dossier/dossier_site_web.zip" class="link-button">
               📁 Télécharger le Dossier Technique
             </a>
+          </div>
+        </div>
+
+        <div id="gallery" class="content-section">
+          <h3 class="links-title">Galerie Photos</h3>
+          <div class="carousel-container">
+            <div class="carousel-wrapper">
+              <button
+                class="carousel-button carousel-prev"
+                onclick="changeSlide(-1)"
+                aria-label="Image précédente"
+              >
+                &#8249;
+              </button>
+              <div class="carousel-slides" id="carouselSlides"></div>
+              <button
+                class="carousel-button carousel-next"
+                onclick="changeSlide(1)"
+                aria-label="Image suivante"
+              >
+                &#8250;
+              </button>
+            </div>
+            <div class="carousel-indicators" id="carouselIndicators"></div>
+            <div class="carousel-counter" id="carouselCounter"></div>
           </div>
         </div>
         <footer class="site-footer">
@@ -210,7 +241,7 @@
     </div>
 
     <script>
-      function showSection(sectionId) {
+      function showSection(sectionId, buttonElement) {
         const sections = document.querySelectorAll(".content-section");
         const buttons = document.querySelectorAll(".nav-button");
 
@@ -223,11 +254,34 @@
         });
 
         document.getElementById(sectionId).classList.add("active");
-        event.target.classList.add("active");
+        if (buttonElement) {
+          buttonElement.classList.add("active");
+        }
 
         // Charger les vidéos seulement quand la section vidéos est active
         if (sectionId === "videos") {
           loadVideos();
+        }
+
+        // Initialiser le carrousel quand la section galerie est active
+        if (sectionId === "gallery") {
+          // Réinitialiser l'état du carrousel
+          currentSlideIndex = 0;
+          setTimeout(() => {
+            try {
+              initCarousel();
+            } catch (error) {
+              console.error(
+                "Erreur lors de l'initialisation du carrousel:",
+                error
+              );
+              const slidesContainer = document.getElementById("carouselSlides");
+              if (slidesContainer) {
+                slidesContainer.innerHTML =
+                  '<p style="text-align: center; color: #f39c12; padding: 40px;">Erreur lors du chargement de la galerie. Veuillez réessayer.</p>';
+              }
+            }
+          }, 100);
         }
       }
 
@@ -259,6 +313,224 @@
       }
 
       window.addEventListener("scroll", handleScroll);
+
+      // Configuration sécurisée du carrousel - chargée depuis un fichier externe
+      let galleryImages = [];
+      let currentSlideIndex = 0;
+      let galleryConfigLoaded = false;
+
+      // Fonction de validation sécurisée des URLs d'images
+      function isValidImageUrl(url) {
+        if (!url || typeof url !== "string") return false;
+        // Vérifier que l'URL commence par "images/" (chemin relatif sécurisé)
+        if (!url.startsWith("images/")) return false;
+        // Vérifier l'extension de fichier (insensible à la casse)
+        const allowedExtensions = [".jpg", ".jpeg", ".png", ".gif", ".webp"];
+        const lowerUrl = url.toLowerCase();
+        return allowedExtensions.some((ext) => lowerUrl.endsWith(ext));
+      }
+
+      // Charger la configuration depuis le fichier JavaScript externe
+      // Cette méthode fonctionne même avec file:// (pas de problème CORS)
+      function loadGalleryConfig() {
+        if (galleryConfigLoaded) {
+          return galleryImages;
+        }
+
+        try {
+          // Vérifier si la configuration est disponible dans window.GALLERY_CONFIG
+          if (typeof window.GALLERY_CONFIG === "undefined") {
+            throw new Error(
+              "Configuration de la galerie non trouvée. Vérifiez que gallery-config.js est chargé."
+            );
+          }
+
+          const config = window.GALLERY_CONFIG;
+          // Valider la structure de la configuration
+          if (!config || !Array.isArray(config.images)) {
+            throw new Error("Format de configuration invalide");
+          }
+
+          // Valider et filtrer les images
+          galleryImages = config.images.filter((img) => {
+            if (!img || !img.src) {
+              console.warn("Image invalide (pas de src):", img);
+              return false;
+            }
+            const isValid = isValidImageUrl(img.src);
+            if (!isValid) {
+              console.warn("URL d'image invalide:", img.src);
+            }
+            return isValid;
+          });
+
+          galleryConfigLoaded = true;
+          return galleryImages;
+        } catch (error) {
+          console.error(
+            "Erreur lors du chargement de la configuration:",
+            error
+          );
+
+          // Fallback vers une configuration par défaut vide
+          galleryImages = [];
+          return galleryImages;
+        }
+      }
+
+      // Fonction de sanitisation pour prévenir XSS
+      function sanitizeText(text) {
+        const div = document.createElement("div");
+        div.textContent = text;
+        return div.innerHTML;
+      }
+
+      // Initialisation du carrousel
+      function initCarousel() {
+        const slidesContainer = document.getElementById("carouselSlides");
+        const indicatorsContainer =
+          document.getElementById("carouselIndicators");
+
+        if (!slidesContainer || !indicatorsContainer) return;
+
+        // Charger la configuration si ce n'est pas déjà fait
+        loadGalleryConfig();
+
+        // Nettoyer les conteneurs
+        slidesContainer.innerHTML = "";
+        indicatorsContainer.innerHTML = "";
+
+        if (galleryImages.length === 0) {
+          console.error("Aucune image disponible - galleryImages est vide");
+          slidesContainer.innerHTML =
+            '<p style="text-align: center; color: #f39c12; padding: 40px;">Aucune image disponible dans la galerie.<br><small style="font-size: 0.8em;">Vérifiez la console pour plus de détails.</small></p>';
+          return;
+        }
+
+        // Filtrer les images valides
+        const validImages = galleryImages.filter((img) => {
+          return img && img.src && isValidImageUrl(img.src);
+        });
+
+        if (validImages.length === 0) {
+          slidesContainer.innerHTML =
+            '<p style="text-align: center; color: #f39c12; padding: 40px;">Aucune image valide dans la galerie.</p>';
+          return;
+        }
+
+        // Réinitialiser l'index si nécessaire
+        if (currentSlideIndex >= validImages.length) {
+          currentSlideIndex = 0;
+        }
+
+        // Créer les slides et indicateurs
+        validImages.forEach((image, index) => {
+          // Créer le slide
+          const slide = document.createElement("div");
+          slide.className = `carousel-slide ${index === 0 ? "active" : ""}`;
+          slide.setAttribute("data-index", index);
+
+          const img = document.createElement("img");
+          img.src = sanitizeText(image.src);
+          img.alt = sanitizeText(image.alt || `Image ${index + 1}`);
+          img.loading = "lazy";
+          img.decoding = "async";
+          img.onerror = function () {
+            console.warn("Erreur de chargement d'image:", image.src);
+            // Masquer le slide en cas d'erreur
+            slide.style.display = "none";
+          };
+          img.onload = function () {
+            // S'assurer que l'image est visible une fois chargée
+            slide.style.display = "";
+          };
+
+          slide.appendChild(img);
+          slidesContainer.appendChild(slide);
+
+          // Créer l'indicateur
+          const indicator = document.createElement("button");
+          indicator.className = `carousel-indicator ${
+            index === 0 ? "active" : ""
+          }`;
+          indicator.setAttribute("aria-label", `Aller à l'image ${index + 1}`);
+          indicator.onclick = () => goToSlide(index);
+          indicatorsContainer.appendChild(indicator);
+        });
+
+        // Réinitialiser l'index au premier slide
+        currentSlideIndex = 0;
+        updateCarousel();
+      }
+
+      // Fonction pour changer de slide
+      function changeSlide(direction) {
+        const slides = document.querySelectorAll(".carousel-slide");
+        const totalSlides = slides.length;
+
+        if (totalSlides === 0) return;
+
+        currentSlideIndex += direction;
+
+        if (currentSlideIndex < 0) {
+          currentSlideIndex = totalSlides - 1;
+        } else if (currentSlideIndex >= totalSlides) {
+          currentSlideIndex = 0;
+        }
+
+        updateCarousel();
+      }
+
+      // Fonction pour aller à un slide spécifique
+      function goToSlide(index) {
+        const slides = document.querySelectorAll(".carousel-slide");
+        const totalSlides = slides.length;
+
+        if (index >= 0 && index < totalSlides) {
+          currentSlideIndex = index;
+          updateCarousel();
+        }
+      }
+
+      // Mise à jour de l'affichage du carrousel
+      function updateCarousel() {
+        const slides = document.querySelectorAll(".carousel-slide");
+        const indicators = document.querySelectorAll(".carousel-indicator");
+        const counter = document.getElementById("carouselCounter");
+
+        slides.forEach((slide, index) => {
+          if (index === currentSlideIndex) {
+            slide.classList.add("active");
+          } else {
+            slide.classList.remove("active");
+          }
+        });
+
+        indicators.forEach((indicator, index) => {
+          if (index === currentSlideIndex) {
+            indicator.classList.add("active");
+          } else {
+            indicator.classList.remove("active");
+          }
+        });
+
+        if (counter) {
+          const totalSlides = slides.length;
+          counter.textContent = `${currentSlideIndex + 1} / ${totalSlides}`;
+        }
+      }
+
+      // Navigation au clavier pour l'accessibilité
+      document.addEventListener("keydown", function (event) {
+        const gallerySection = document.getElementById("gallery");
+        if (gallerySection && gallerySection.classList.contains("active")) {
+          if (event.key === "ArrowLeft") {
+            changeSlide(-1);
+          } else if (event.key === "ArrowRight") {
+            changeSlide(1);
+          }
+        }
+      });
     </script>
   </body>
 </html>
