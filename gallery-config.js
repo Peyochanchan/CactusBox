@@ -2,7 +2,7 @@
 window.GALLERY_CONFIG = {
   "images": [
     {
-      "src": "images/gallery/_twoPeio_et_Joos_satures.jpg",
+      "src": "images/gallery/twoPeio_et_Joos_satures.jpg",
       "alt": "Cactus Box - Peio et Joos en concert"
     },
     {
